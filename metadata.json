@@ -1,0 +1,6 @@
+{
+  "name": "Veridades Consulting",
+  "description": "An execution-led corporate advisory firm across strategy, transactions, governance, risk, and business transformation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
