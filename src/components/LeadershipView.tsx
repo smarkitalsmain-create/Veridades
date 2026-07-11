@@ -59,13 +59,13 @@ export default function LeadershipView() {
         {/* Leadership Showcase */}
         <div className="flex flex-col md:flex-row items-start gap-10 md:gap-12 lg:gap-16 select-none w-full py-4">
           {/* Left: monogram tile grid */}
-          <div className="flex gap-3 md:gap-4 flex-shrink-0 overflow-x-auto pb-1 md:pb-0">
-            <div className="flex flex-col gap-3 md:gap-4">
+          <div className="flex gap-4 md:gap-5 flex-shrink-0 overflow-x-auto pb-1 md:pb-0">
+            <div className="flex flex-col gap-4 md:gap-5">
               {col1.map((member) => (
                 <MonogramTile
                   key={member.id}
                   member={member}
-                  className="w-[110px] h-[120px] sm:w-[130px] sm:h-[140px] md:w-[155px] md:h-[165px]"
+                  className="w-[155px] h-[168px] sm:w-[182px] sm:h-[196px] md:w-[217px] md:h-[231px]"
                   hoveredId={hoveredId}
                   onHover={setHoveredId}
                   onOpen={setActiveLeader}
@@ -73,12 +73,12 @@ export default function LeadershipView() {
               ))}
             </div>
 
-            <div className="flex flex-col gap-3 md:gap-4 mt-[48px] sm:mt-[56px] md:mt-[68px]">
+            <div className="flex flex-col gap-4 md:gap-5 mt-[67px] sm:mt-[78px] md:mt-[95px]">
               {col2.map((member) => (
                 <MonogramTile
                   key={member.id}
                   member={member}
-                  className="w-[122px] h-[132px] sm:w-[145px] sm:h-[155px] md:w-[172px] md:h-[182px]"
+                  className="w-[171px] h-[185px] sm:w-[203px] sm:h-[217px] md:w-[241px] md:h-[255px]"
                   hoveredId={hoveredId}
                   onHover={setHoveredId}
                   onOpen={setActiveLeader}
@@ -86,12 +86,12 @@ export default function LeadershipView() {
               ))}
             </div>
 
-            <div className="flex flex-col gap-3 md:gap-4 mt-[22px] sm:mt-[26px] md:mt-[32px]">
+            <div className="flex flex-col gap-4 md:gap-5 mt-[31px] sm:mt-[36px] md:mt-[45px]">
               {col3.map((member) => (
                 <MonogramTile
                   key={member.id}
                   member={member}
-                  className="w-[115px] h-[125px] sm:w-[136px] sm:h-[146px] md:w-[162px] md:h-[172px]"
+                  className="w-[161px] h-[175px] sm:w-[190px] sm:h-[204px] md:w-[227px] md:h-[241px]"
                   hoveredId={hoveredId}
                   onHover={setHoveredId}
                   onOpen={setActiveLeader}
@@ -258,14 +258,14 @@ function MonogramTile({
           className={cn(
             "serif-heading font-light tracking-tight transition-all duration-500",
             isActive ? "text-gold-400 scale-110" : "text-gold-400/60 scale-100",
-            "text-3xl sm:text-4xl md:text-5xl",
+            "text-5xl sm:text-6xl md:text-7xl",
           )}
         >
           {initials}
         </span>
       </div>
-      <div className="absolute top-2 right-2 h-4 w-4 border border-gold-400/30 rounded-full flex items-center justify-center">
-        <span className="text-[6px] text-gold-400">VC</span>
+      <div className="absolute top-3 right-3 h-6 w-6 border border-gold-400/30 rounded-full flex items-center justify-center">
+        <span className="text-[8px] text-gold-400">VC</span>
       </div>
     </button>
   );
