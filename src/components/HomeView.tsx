@@ -97,12 +97,11 @@ export default function HomeView() {
             {/* Left Content Column */}
             <div className="lg:col-span-7 flex flex-col justify-center z-10">
               <div className="w-12 h-1 bg-navy-900 mb-8" />
-              <h1 className="serif-heading text-4xl sm:text-5xl lg:text-[64px] leading-[1.05] font-light text-navy-900 mb-6">
-                Execution-Led <br />
-                <span className="italic">Corporate Advisory</span>
+              <h1 className="serif-heading text-4xl sm:text-5xl lg:text-[56px] leading-[1.15] font-light text-navy-900 mb-6">
+                One-Stop Financial Boutique <span className="italic">— Strategy, Governance & Growth</span>
               </h1>
               <p className="font-sans text-gray-600 text-base md:text-lg leading-relaxed mb-8 max-w-xl">
-                We help organisations navigate strategic decisions, transactions, governance, risk and business transformation with rigorous advice and disciplined execution.
+                One partner for the full arc of corporate life — strategy, transactions, governance, risk and growth — delivered with rigorous advice and disciplined execution, all under one roof.
               </p>
               
               <div className="text-xs md:text-sm font-semibold tracking-wide text-navy-900 font-sans uppercase mb-8 flex flex-wrap items-center gap-2">
@@ -217,7 +216,7 @@ export default function HomeView() {
 
             <div className="lg:col-span-7">
               <p className="font-sans text-gray-700 text-base md:text-lg leading-relaxed mb-6">
-                <strong>Veridades Consulting</strong> is an execution-led corporate advisory firm serving promoters, management teams, investors and institutional stakeholders. We operate across strategy, transactions, governance, risk and business transformation, combining analytical rigour with hands-on execution discipline.
+                <strong>Veridades Consulting</strong> is a one-stop financial boutique serving promoters, management teams, investors and institutional stakeholders. We bring strategy, governance, risk, transactions and growth advisory under one roof, combining analytical rigour with hands-on execution discipline.
               </p>
               <p className="font-sans text-gray-600 text-sm md:text-base leading-relaxed">
                 Many boutique firms deliver high-level presentation slides and leave the implementation risk solely to the client. At Veridades, we believe true corporate counsel requires active participation. We bridge the critical gap between recommendations and real-world outcomes, remaining engaged side-by-side until the intended enterprise value is unlocked.
