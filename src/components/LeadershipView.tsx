@@ -1,22 +1,23 @@
+import { useState } from "react";
 import { LEADERSHIP_DATA } from "../data";
 import { SectionHeader } from "./Common";
-import { Mail, Phone, MapPin, Award, CheckCircle2 } from "lucide-react";
+import { LeaderItem } from "../types";
+import { Mail, CheckCircle2, X, Award, BadgeCheck } from "lucide-react";
 
 export default function LeadershipView() {
-  
+  const [activeLeader, setActiveLeader] = useState<LeaderItem | null>(null);
+
   // Custom helper to generate beautiful elegant corporate initial avatars
   const renderAvatar = (name: string, role: string) => {
-  const initials = name
-    .split(" ")
-    .filter(
-      (word) =>
-        !["CA", "Dr.", "Dr", "Mr.", "Mr", "Mrs.", "Mrs", "Ms.", "Ms"].includes(word)
-    )
-    .map((word) => word[0])
-    .slice(0, 2)
-    .join("");
-
-  // rest of your code...
+    const initials = name
+      .split(" ")
+      .filter(
+        (word) =>
+          !["CA", "Dr.", "Dr", "Mr.", "Mr", "Mrs.", "Mrs", "Ms.", "Ms"].includes(word)
+      )
+      .map((word) => word[0])
+      .slice(0, 2)
+      .join("");
 
     const isPlaceholder = name.includes("Placeholder") || name.includes("Advisory");
 
@@ -57,7 +58,7 @@ export default function LeadershipView() {
   return (
     <div className="bg-white min-h-screen py-12 md:py-16">
       <div className="container mx-auto md:px-8 lg:px-12">
-        
+
         {/* Page Header */}
         <SectionHeader
           badge="Advisory Board"
@@ -98,39 +99,131 @@ export default function LeadershipView() {
 
         {/* Leadership Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {LEADERSHIP_DATA.map((partner) => {
-            const isPlaceholder = partner.id === "partner-placeholder";
-            return (
-              <div
-                key={partner.id}
-                className="bg-white border border-border-grey hover:shadow-lg hover:border-gold-600 transition-all duration-300 rounded-xs flex flex-col justify-between overflow-hidden"
-              >
-                <div>
-                  {/* Avatar Container */}
-                  {renderAvatar(partner.name, partner.role)}
+          {LEADERSHIP_DATA.map((partner) => (
+            <button
+              key={partner.id}
+              onClick={() => setActiveLeader(partner)}
+              className="text-left bg-white border border-border-grey hover:shadow-lg hover:border-gold-600 transition-all duration-300 rounded-xs flex flex-col justify-between overflow-hidden group cursor-pointer"
+            >
+              <div>
+                {/* Avatar Container */}
+                {renderAvatar(partner.name, partner.role)}
 
-                  {/* Profile details */}
-                  <div className="p-8">
-  <h3 className="serif-heading text-xl font-semibold text-navy-900 mb-1">
-    {partner.name}
-  </h3>
+                {/* Profile details */}
+                <div className="p-8">
+                  <h3 className="serif-heading text-xl font-semibold text-navy-900 mb-1">
+                    {partner.name}
+                  </h3>
 
-  <div className="min-h-[42px] mb-4">
-    <span className="micro-caps text-gold-600 block leading-snug">
-      {partner.role}
-    </span>
-  </div>
+                  <div className="min-h-[42px] mb-4">
+                    <span className="micro-caps text-gold-600 block leading-snug">
+                      {partner.role}
+                    </span>
+                  </div>
 
-  <p className="text-gray-600 text-sm leading-relaxed font-sans">
-    {partner.bio}
-  </p>
-</div>
-</div>
- </div>
-            );
-          })}
+                  <p className="text-gray-600 text-sm leading-relaxed font-sans line-clamp-4">
+                    {partner.bio}
+                  </p>
+
+                  <span className="micro-caps text-navy-900 group-hover:text-gold-600 inline-flex items-center gap-2 mt-6 transition-colors">
+                    View Full Profile
+                    <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                  </span>
+                </div>
+              </div>
+            </button>
+          ))}
         </div>
       </div>
+
+      {/* Profile Modal */}
+      {activeLeader && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-navy-900/70 backdrop-blur-sm"
+          onClick={() => setActiveLeader(null)}
+        >
+          <div
+            className="relative bg-white w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-xs shadow-2xl border-t-4 border-gold-600"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close */}
+            <button
+              onClick={() => setActiveLeader(null)}
+              className="absolute top-5 right-5 h-9 w-9 flex items-center justify-center rounded-full border border-border-grey text-navy-900 hover:bg-navy-900 hover:text-white hover:border-navy-900 transition-all duration-200"
+              aria-label="Close"
+            >
+              <X size={16} />
+            </button>
+
+            <div className="p-8 md:p-10">
+              {/* Header */}
+              <div className="pr-10">
+                <span className="micro-caps text-gold-600 block mb-2">
+                  {activeLeader.role}
+                </span>
+                <h3 className="serif-heading text-3xl md:text-4xl font-light text-navy-900 leading-tight">
+                  {activeLeader.name}
+                </h3>
+                <a
+                  href={`mailto:${activeLeader.email}`}
+                  className="mt-3 inline-flex items-center gap-2 text-xs md:text-sm text-gray-600 hover:text-gold-600 transition-colors"
+                >
+                  <Mail size={14} className="text-gold-600 shrink-0" />
+                  {activeLeader.email}
+                </a>
+              </div>
+
+              <div className="w-full h-px bg-border-grey my-6" />
+
+              {/* Bio */}
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed font-sans">
+                {activeLeader.bio}
+              </p>
+
+              {/* Areas of Expertise */}
+              <div className="mt-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <Award size={15} className="text-gold-600" />
+                  <span className="micro-caps text-navy-900 font-semibold">
+                    Areas of Expertise
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {activeLeader.expertise.map((item) => (
+                    <span
+                      key={item}
+                      className="text-xs font-sans text-navy-900 bg-soft-grey border border-border-grey px-3 py-1.5 rounded-xs"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Academic Credentials */}
+              <div className="mt-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <BadgeCheck size={15} className="text-gold-600" />
+                  <span className="micro-caps text-navy-900 font-semibold">
+                    Credentials
+                  </span>
+                </div>
+                <ul className="space-y-1.5">
+                  {activeLeader.credentials.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-center gap-2 text-sm text-gray-600 font-sans"
+                    >
+                      <CheckCircle2 size={13} className="text-gold-600 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
