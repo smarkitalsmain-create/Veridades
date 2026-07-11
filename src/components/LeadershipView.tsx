@@ -1,59 +1,18 @@
 import { useState } from "react";
+import { Mail, Linkedin, CheckCircle2, X, Award, BadgeCheck } from "lucide-react";
 import { LEADERSHIP_DATA } from "../data";
 import { SectionHeader } from "./Common";
 import { LeaderItem } from "../types";
-import { Mail, CheckCircle2, X, Award, BadgeCheck } from "lucide-react";
+import { cn } from "../lib/utils";
 
 export default function LeadershipView() {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [activeLeader, setActiveLeader] = useState<LeaderItem | null>(null);
 
-  // Custom helper to generate beautiful elegant corporate initial avatars
-  const renderAvatar = (name: string, role: string) => {
-    const initials = name
-      .split(" ")
-      .filter(
-        (word) =>
-          !["CA", "Dr.", "Dr", "Mr.", "Mr", "Mrs.", "Mrs", "Ms.", "Ms"].includes(word)
-      )
-      .map((word) => word[0])
-      .slice(0, 2)
-      .join("");
-
-    const isPlaceholder = name.includes("Placeholder") || name.includes("Advisory");
-
-    return (
-      <div className={`relative h-56 w-full flex items-center justify-center rounded-xs overflow-hidden border-b border-gold-600 shadow-sm ${
-        isPlaceholder ? "bg-soft-grey text-navy-900/30" : "bg-navy-900 text-white"
-      }`}>
-        {/* Subtle background lines */}
-        <div className="absolute inset-0 opacity-10 flex flex-col justify-between p-4 pointer-events-none select-none">
-          <div className="flex justify-between">
-            <span className="text-[10px] font-mono">VERIDADES</span>
-            <span className="text-[10px] font-mono">EXECUTION</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-[10px] font-mono">DELHI</span>
-            <span className="text-[10px] font-mono">JAIPUR</span>
-          </div>
-        </div>
-
-        {/* Floating circular logo badge */}
-        <div className="absolute top-4 right-4 h-6 w-6 border border-gold-400/30 rounded-full flex items-center justify-center">
-          <span className="text-[8px] text-gold-400">VC</span>
-        </div>
-
-        {/* Display Initials in massive, gorgeous serif fonts */}
-        <div className="text-center">
-          <span className="serif-heading text-6xl md:text-7xl font-light tracking-tight block text-gold-400 opacity-90">
-            {initials}
-          </span>
-          <span className="micro-caps text-gray-300 block mt-2">
-            {role.split("&")[0]}
-          </span>
-        </div>
-      </div>
-    );
-  };
+  const members = LEADERSHIP_DATA;
+  const col1 = members.filter((_, i) => i % 3 === 0);
+  const col2 = members.filter((_, i) => i % 3 === 1);
+  const col3 = members.filter((_, i) => i % 3 === 2);
 
   return (
     <div className="bg-white min-h-screen py-12 md:py-16">
@@ -67,7 +26,7 @@ export default function LeadershipView() {
         />
 
         {/* Operational Commitment Panel */}
-        <div className="bg-soft-grey border border-border-grey p-8 md:p-12 mb-16 rounded-xs">
+        <div className="bg-soft-grey border border-border-grey p-8 md:p-12 mb-20 rounded-xs">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8">
               <span className="micro-caps text-gold-600 block mb-1">
@@ -97,42 +56,62 @@ export default function LeadershipView() {
           </div>
         </div>
 
-        {/* Leadership Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {LEADERSHIP_DATA.map((partner) => (
-            <button
-              key={partner.id}
-              onClick={() => setActiveLeader(partner)}
-              className="text-left bg-white border border-border-grey hover:shadow-lg hover:border-gold-600 transition-all duration-300 rounded-xs flex flex-col justify-between overflow-hidden group cursor-pointer"
-            >
-              <div>
-                {/* Avatar Container */}
-                {renderAvatar(partner.name, partner.role)}
+        {/* Leadership Showcase */}
+        <div className="flex flex-col md:flex-row items-start gap-10 md:gap-12 lg:gap-16 select-none w-full py-4">
+          {/* Left: monogram tile grid */}
+          <div className="flex gap-3 md:gap-4 flex-shrink-0 overflow-x-auto pb-1 md:pb-0">
+            <div className="flex flex-col gap-3 md:gap-4">
+              {col1.map((member) => (
+                <MonogramTile
+                  key={member.id}
+                  member={member}
+                  className="w-[110px] h-[120px] sm:w-[130px] sm:h-[140px] md:w-[155px] md:h-[165px]"
+                  hoveredId={hoveredId}
+                  onHover={setHoveredId}
+                  onOpen={setActiveLeader}
+                />
+              ))}
+            </div>
 
-                {/* Profile details */}
-                <div className="p-8">
-                  <h3 className="serif-heading text-xl font-semibold text-navy-900 mb-1">
-                    {partner.name}
-                  </h3>
+            <div className="flex flex-col gap-3 md:gap-4 mt-[48px] sm:mt-[56px] md:mt-[68px]">
+              {col2.map((member) => (
+                <MonogramTile
+                  key={member.id}
+                  member={member}
+                  className="w-[122px] h-[132px] sm:w-[145px] sm:h-[155px] md:w-[172px] md:h-[182px]"
+                  hoveredId={hoveredId}
+                  onHover={setHoveredId}
+                  onOpen={setActiveLeader}
+                />
+              ))}
+            </div>
 
-                  <div className="min-h-[42px] mb-4">
-                    <span className="micro-caps text-gold-600 block leading-snug">
-                      {partner.role}
-                    </span>
-                  </div>
+            <div className="flex flex-col gap-3 md:gap-4 mt-[22px] sm:mt-[26px] md:mt-[32px]">
+              {col3.map((member) => (
+                <MonogramTile
+                  key={member.id}
+                  member={member}
+                  className="w-[115px] h-[125px] sm:w-[136px] sm:h-[146px] md:w-[162px] md:h-[172px]"
+                  hoveredId={hoveredId}
+                  onHover={setHoveredId}
+                  onOpen={setActiveLeader}
+                />
+              ))}
+            </div>
+          </div>
 
-                  <p className="text-gray-600 text-sm leading-relaxed font-sans line-clamp-4">
-                    {partner.bio}
-                  </p>
-
-                  <span className="micro-caps text-navy-900 group-hover:text-gold-600 inline-flex items-center gap-2 mt-6 transition-colors">
-                    View Full Profile
-                    <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                  </span>
-                </div>
-              </div>
-            </button>
-          ))}
+          {/* Right: member roster */}
+          <div className="flex flex-col gap-6 md:gap-7 pt-0 md:pt-2 flex-1 w-full">
+            {members.map((member) => (
+              <MemberRow
+                key={member.id}
+                member={member}
+                hoveredId={hoveredId}
+                onHover={setHoveredId}
+                onOpen={setActiveLeader}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
@@ -146,7 +125,6 @@ export default function LeadershipView() {
             className="relative bg-white w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-xs shadow-2xl border-t-4 border-gold-600"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close */}
             <button
               onClick={() => setActiveLeader(null)}
               className="absolute top-5 right-5 h-9 w-9 flex items-center justify-center rounded-full border border-border-grey text-navy-900 hover:bg-navy-900 hover:text-white hover:border-navy-900 transition-all duration-200"
@@ -156,7 +134,6 @@ export default function LeadershipView() {
             </button>
 
             <div className="p-8 md:p-10">
-              {/* Header */}
               <div className="pr-10">
                 <span className="micro-caps text-gold-600 block mb-2">
                   {activeLeader.role}
@@ -164,23 +141,34 @@ export default function LeadershipView() {
                 <h3 className="serif-heading text-3xl md:text-4xl font-light text-navy-900 leading-tight">
                   {activeLeader.name}
                 </h3>
-                <a
-                  href={`mailto:${activeLeader.email}`}
-                  className="mt-3 inline-flex items-center gap-2 text-xs md:text-sm text-gray-600 hover:text-gold-600 transition-colors"
-                >
-                  <Mail size={14} className="text-gold-600 shrink-0" />
-                  {activeLeader.email}
-                </a>
+                <div className="mt-3 flex items-center gap-4">
+                  <a
+                    href={`mailto:${activeLeader.email}`}
+                    className="inline-flex items-center gap-2 text-xs md:text-sm text-gray-600 hover:text-gold-600 transition-colors"
+                  >
+                    <Mail size={14} className="text-gold-600 shrink-0" />
+                    {activeLeader.email}
+                  </a>
+                  {activeLeader.linkedin && (
+                    <a
+                      href={activeLeader.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-xs md:text-sm text-gray-600 hover:text-gold-600 transition-colors"
+                    >
+                      <Linkedin size={14} className="text-gold-600 shrink-0" />
+                      LinkedIn
+                    </a>
+                  )}
+                </div>
               </div>
 
               <div className="w-full h-px bg-border-grey my-6" />
 
-              {/* Bio */}
               <p className="text-gray-600 text-sm md:text-base leading-relaxed font-sans">
                 {activeLeader.bio}
               </p>
 
-              {/* Areas of Expertise */}
               <div className="mt-8">
                 <div className="flex items-center gap-2 mb-3">
                   <Award size={15} className="text-gold-600" />
@@ -200,7 +188,6 @@ export default function LeadershipView() {
                 </div>
               </div>
 
-              {/* Academic Credentials */}
               <div className="mt-8">
                 <div className="flex items-center gap-2 mb-3">
                   <BadgeCheck size={15} className="text-gold-600" />
@@ -224,6 +211,145 @@ export default function LeadershipView() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────
+   Monogram tile (brand stand-in for a headshot)
+───────────────────────────────────────── */
+
+function MonogramTile({
+  member,
+  className,
+  hoveredId,
+  onHover,
+  onOpen,
+}: {
+  member: LeaderItem;
+  className: string;
+  hoveredId: string | null;
+  onHover: (id: string | null) => void;
+  onOpen: (member: LeaderItem) => void;
+}) {
+  const isActive = hoveredId === member.id;
+  const isDimmed = hoveredId !== null && !isActive;
+
+  const initials = member.name
+    .split(" ")
+    .filter((word) => !["CA", "Dr.", "Dr", "Mr.", "Mr", "Mrs.", "Mrs", "Ms.", "Ms"].includes(word))
+    .map((word) => word[0])
+    .slice(0, 2)
+    .join("");
+
+  return (
+    <button
+      onClick={() => onOpen(member)}
+      className={cn(
+        "relative overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-opacity duration-400 bg-navy-900 border-b-2 border-gold-600",
+        className,
+        isDimmed ? "opacity-50" : "opacity-100",
+      )}
+      onMouseEnter={() => onHover(member.id)}
+      onMouseLeave={() => onHover(null)}
+    >
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span
+          className={cn(
+            "serif-heading font-light tracking-tight transition-all duration-500",
+            isActive ? "text-gold-400 scale-110" : "text-gold-400/60 scale-100",
+            "text-3xl sm:text-4xl md:text-5xl",
+          )}
+        >
+          {initials}
+        </span>
+      </div>
+      <div className="absolute top-2 right-2 h-4 w-4 border border-gold-400/30 rounded-full flex items-center justify-center">
+        <span className="text-[6px] text-gold-400">VC</span>
+      </div>
+    </button>
+  );
+}
+
+/* ─────────────────────────────────────────
+   Member roster row
+───────────────────────────────────────── */
+
+function MemberRow({
+  member,
+  hoveredId,
+  onHover,
+  onOpen,
+}: {
+  member: LeaderItem;
+  hoveredId: string | null;
+  onHover: (id: string | null) => void;
+  onOpen: (member: LeaderItem) => void;
+}) {
+  const isActive = hoveredId === member.id;
+  const isDimmed = hoveredId !== null && !isActive;
+
+  return (
+    <div
+      className={cn(
+        "cursor-pointer transition-opacity duration-300",
+        isDimmed ? "opacity-50" : "opacity-100",
+      )}
+      onMouseEnter={() => onHover(member.id)}
+      onMouseLeave={() => onHover(null)}
+      onClick={() => onOpen(member)}
+    >
+      <div className="flex items-center gap-3">
+        <span
+          className={cn(
+            "h-3 rounded-[3px] flex-shrink-0 transition-all duration-300 bg-gold-600",
+            isActive ? "w-6" : "w-4 opacity-40",
+          )}
+        />
+        <span
+          className={cn(
+            "serif-heading text-xl md:text-2xl font-semibold leading-none tracking-tight transition-colors duration-300",
+            isActive ? "text-navy-900" : "text-navy-900/75",
+          )}
+        >
+          {member.name}
+        </span>
+
+        <div
+          className={cn(
+            "flex items-center gap-1.5 ml-1 transition-all duration-200",
+            isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2 pointer-events-none",
+          )}
+        >
+          <a
+            href={`mailto:${member.email}`}
+            onClick={(e) => e.stopPropagation()}
+            className="p-1.5 rounded text-gray-500 hover:text-gold-600 hover:bg-soft-grey transition-all duration-150 hover:scale-110"
+            title="Email"
+          >
+            <Mail size={13} />
+          </a>
+          {member.linkedin && (
+            <a
+              href={member.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="p-1.5 rounded text-gray-500 hover:text-gold-600 hover:bg-soft-grey transition-all duration-150 hover:scale-110"
+              title="LinkedIn"
+            >
+              <Linkedin size={13} />
+            </a>
+          )}
+        </div>
+      </div>
+
+      <p className="mt-2 pl-[28px] micro-caps text-gold-600">
+        {member.role}
+      </p>
+      <p className="mt-1.5 pl-[28px] text-sm text-gray-600 font-sans max-w-xl line-clamp-2">
+        {member.bio}
+      </p>
     </div>
   );
 }

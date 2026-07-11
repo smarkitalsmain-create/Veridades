@@ -37,6 +37,8 @@ export interface LeaderItem {
   email: string;
   expertise: string[];
   credentials: string[];
+  image?: string;
+  linkedin?: string;
 }
 
 export interface EngagementItem {
