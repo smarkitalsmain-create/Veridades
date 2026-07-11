@@ -34,6 +34,9 @@ export interface LeaderItem {
   name: string;
   role: string;
   bio: string;
+  email: string;
+  expertise: string[];
+  credentials: string[];
 }
 
 export interface EngagementItem {

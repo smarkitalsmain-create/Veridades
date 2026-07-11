@@ -590,20 +590,47 @@ export const LEADERSHIP_DATA: LeaderItem[] = [
     id: "nitin-sharma",
     name: "Nitin Sharma",
     role: "Managing Partner",
-  bio:"Nitin Sharma leads Veridades Consulting's corporate advisory and transaction practice, with experience across transaction advisory, business facilitation, governance and business transformation. He advises promoters and enterprises on strategic growth, operational improvement, commercial decision-making and complex business transactions."
+    bio: "Nitin Sharma leads Veridades Consulting's corporate advisory and transaction practice, with experience across transaction advisory, business facilitation, governance and business transformation. He advises promoters and enterprises on strategic growth, operational improvement, commercial decision-making and complex business transactions.",
+    email: "nitin.sharma@veridadesconsulting.com",
+    expertise: [
+      "Mergers & Acquisitions Advisory",
+      "Transaction Advisory & Due Diligence",
+      "Business Facilitation & Strategic Partnerships",
+      "Corporate Governance",
+      "Business Transformation"
+    ],
+    credentials: ["Managing Partner, Veridades Consulting", "Delhi & Jaipur"]
   },
   {
     id: "sanket-kulshrestha",
     name: "Sanket Kulshrestha",
     role: "Co-Managing Partner",
-  bio:"Sanket Kulshrestha specializes in corporate strategy, business setup advisory, startup consulting, enterprise risk, internal audit, process setup, SOP development and business transformation. He partners with founders and organisations to strengthen governance, redesign processes, improve performance and build scalable businesses."
+    bio: "Sanket Kulshrestha specializes in corporate strategy, business setup advisory, startup consulting, enterprise risk, internal audit, process setup, SOP development and business transformation. He partners with founders and organisations to strengthen governance, redesign processes, improve performance and build scalable businesses.",
+    email: "sanket.kulshrestha@veridadesconsulting.com",
+    expertise: [
+      "Corporate Strategy & Business Setup Advisory",
+      "Startup Consulting",
+      "Enterprise Risk & Internal Audit",
+      "Process Setup & SOP Development",
+      "Business Transformation"
+    ],
+    credentials: ["Co-Managing Partner, Veridades Consulting", "Delhi & Jaipur"]
   },
   {
-  id: "aditi-aggarwal",
-  name: "CA Aditi Aggarwal",
-  role: "Executive Partner – Indirect Tax & Regulatory Advisory",
-  bio:"CA Aditi Aggarwal leads the firm's Indirect Tax and Regulatory Advisory practice, with expertise in GST, UAE VAT, tax litigation, regulatory compliance and tax transformation. She advises businesses on tax governance, dispute resolution, restructuring, compliance automation and commercially practical tax solutions."
-}
+    id: "aditi-aggarwal",
+    name: "CA Aditi Aggarwal",
+    role: "Executive Partner – Indirect Tax & Regulatory Advisory",
+    bio: "CA Aditi Aggarwal leads the firm's Indirect Tax and Regulatory Advisory practice, with expertise in GST, UAE VAT, tax litigation, regulatory compliance and tax transformation. She advises businesses on tax governance, dispute resolution, restructuring, compliance automation and commercially practical tax solutions.",
+    email: "aditi.aggarwal@veridadesconsulting.com",
+    expertise: [
+      "GST Advisory & Compliance",
+      "UAE VAT",
+      "Tax Litigation & Dispute Resolution",
+      "Regulatory Compliance & Restructuring",
+      "Tax Transformation & Compliance Automation"
+    ],
+    credentials: ["Chartered Accountant (CA)", "Executive Partner, Veridades Consulting"]
+  }
 ];
 
 export const ENGAGEMENTS_DATA: EngagementItem[] = [
